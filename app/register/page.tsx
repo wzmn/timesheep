@@ -1,5 +1,5 @@
 'use client'
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, use } from "react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
 
@@ -11,10 +11,14 @@ export default function Register() {
     const [password, setPassword] = useState("")
     const [response, setResponse] = useState("")
     const [isError, setIsError] = useState(false)
-    
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
+        setIsLoading(true)
+        setResponse("")
+        setIsError(false)
         fetch("/register/api", {
             method: "POST",
             body: JSON.stringify({
@@ -31,6 +35,8 @@ export default function Register() {
                 } else {
                     router.push('/login')
                 }
+            }).finally(() => {
+                setIsLoading(false)
             })
         })
     }
@@ -49,6 +55,7 @@ export default function Register() {
                             required
                             className="border-2 p-2 border-gray-200 rounded-lg"
                             value={name}
+                            disabled={isLoading}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </label>
@@ -61,6 +68,7 @@ export default function Register() {
                             required
                             className="border-2 p-2 border-gray-200 rounded-lg"
                             value={username}
+                            disabled={isLoading}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </label>
@@ -73,11 +81,12 @@ export default function Register() {
                             required
                             className="border-2 p-2 border-gray-200 rounded-lg"
                             value={password}
+                            disabled={isLoading}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </label>
 
-                    <input type="submit" value="Register" className="border bg-blue-700 text-white rounded-lg p-3 text-sm mb-4" />
+                    <input type="submit" value="Register" disabled={isLoading} className="border bg-blue-700 text-white rounded-lg p-3 text-sm mb-4" />
                     <p className={isError ? "text-red-600 text-sm mb-4" : "text-green-600 text-sm mb-4"}>{response}</p>
                 </form>
                 <p className="text-sm">Have an account? <Link className=" text-blue-700" href={"/login"}>Login</Link></p>

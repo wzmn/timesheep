@@ -72,9 +72,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:shadow-lg hover:shadow-blue-200 transition-all hover:-translate-y-1">
+            <Link href="/login" className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:shadow-lg hover:shadow-blue-200 transition-all hover:-translate-y-1">
               Start Tracking Now
-            </button>
+            </Link>
             <button className="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold text-lg hover:bg-slate-50 transition-all">
               Schedule Demo
             </button>

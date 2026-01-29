@@ -1,6 +1,8 @@
+'use client'
 import Link from 'next/link';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { getWorkingDatesOfWeek } from "@/lib/time"
+import { useEffect, useState } from 'react';
 
 const handleEdit = (week: number) => {
     console.log(`Edit button clicked for week ${week}`);
@@ -13,17 +15,17 @@ interface DataRow {
     hours: number;
 }
 const conditionalCellStyles = [
-  {
-    when: (cell: DataRow) => cell.hasOwnProperty('week'),
-    style: {
-      backgroundColor: '#f9fafb',
+    {
+        when: (cell: DataRow) => cell.hasOwnProperty('week'),
+        style: {
+            backgroundColor: '#f9fafb',
+        },
     },
-  },
 ];
 
 const columns: TableColumn<DataRow>[] = [
     {
-        conditionalCellStyles:conditionalCellStyles,
+        conditionalCellStyles: conditionalCellStyles,
         name: 'WEEK#',
         width: '100px',
         selector: (row) => row.week,
@@ -60,7 +62,7 @@ const columns: TableColumn<DataRow>[] = [
             if (row.hours >= 40) {
                 return <div className="flex gap-2"><Link className='text-blue-600 cursor-pointer text-center' href={`/dashboard/week/${row.week}`}>VIEW</Link></div>;
             }
-            return <div className="flex gap-2"><Link className='text-blue-600 cursor-pointer text-center' href={`/dashboard/week/${row.week}`}>UPDATE</Link></div>;      
+            return <div className="flex gap-2"><Link className='text-blue-600 cursor-pointer text-center' href={`/dashboard/week/${row.week}`}>UPDATE</Link></div>;
         },
     },
 ];
@@ -102,17 +104,27 @@ const data: DataCell[] = [
     },
 ]
 
-
-
 const MyTable = function () {
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
+
     return (
-        <DataTable
-            title="Your Timesheets"
-            columns={columns}
-            data={data}
-            pagination
-            customStyles={customStyles}
-        />
+        
+            <DataTable
+                title="Your Timesheets"
+                columns={columns}
+                data={data}
+                pagination
+                customStyles={customStyles}
+            />
+        
     )
 }
 

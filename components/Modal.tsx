@@ -86,7 +86,7 @@ Modal.Window = ({ children, title }) => {
       />
       <div className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg animate-in fade-in zoom-in duration-200">
         <div className="bg-white">
-          <div className="flex items-center justify-between border-b border-slate-200 py-3 mb-4 sm:p-6 sm:pb-4">
+          <div className="flex items-center justify-between border-b border-slate-200 p-3 mb-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
             <button onClick={close} className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">Close</span>

@@ -11,9 +11,13 @@ export default function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [response, setResponse] = useState("")
+    const [loading, setLoading] = useState(false)
+
 
     const login = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
+        setResponse("");
         const result = await signIn("credentials", {
             username,
             password,
@@ -25,6 +29,7 @@ export default function Login() {
             router.push(callbackUrl);
         } else {
             setResponse("Invalid username or password");
+            setLoading(false);
         }
     }
 
@@ -36,18 +41,18 @@ export default function Login() {
                     <form onSubmit={login} className="flex flex-col w-full mb-4">
                         <label className="font-semibold text-sm flex flex-col gap-2 mb-4">
                             Username
-                            <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} className="border-2 p-2 border-gray-200 rounded-lg" />
+                            <input disabled={loading} type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} className="border-2 p-2 border-gray-200 rounded-lg" />
                         </label>
                         <label className="font-semibold text-sm flex flex-col gap-2 mb-4">
                             Password
-                            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-2 p-2 border-gray-200 rounded-lg" />
+                            <input disabled={loading} type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-2 p-2 border-gray-200 rounded-lg" />
                         </label>
                         <label className="font-medium text-sm flex gap-2 mb-4 text-gray-500">
-                            <input type="checkbox" name="remember" className="border-2 p-2 border-gray-200 rounded-lg" />
+                            <input disabled={loading} type="checkbox" name="remember" className="border-2 p-2 border-gray-200 rounded-lg" />
                             Remember me
                         </label>
                         <p className="text-red-600 text-sm mb-4">{response}</p>
-                        <input type="submit" value="Sign in" className="border bg-blue-700 text-white rounded-lg p-3 text-sm" />
+                        <input disabled={loading} type="submit" value="Sign in" className="border bg-blue-700 text-white rounded-lg p-3 text-sm" />
                     </form>
                     <Link className="text-sm text-blue-700" href={"/register"}>Create account</Link>
                 </div>

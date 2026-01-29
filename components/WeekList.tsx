@@ -109,7 +109,7 @@ export default function Week({ week: slug }: WeekProps) {
       {/* Entry Modal */}
       <Modal ref={createModalRef}>
         <Modal.Window title="Add New Entry">
-          <form id="task-form" onSubmit={createTask} className="flex flex-col gap-4 py-3">
+          <form id="task-form" onSubmit={createTask} className="flex flex-col gap-4 p-3 sm:px-6">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="task-project" className="font-semibold text-sm text-slate-700">Project</label>
               <input
@@ -172,7 +172,7 @@ export default function Week({ week: slug }: WeekProps) {
             </div>
           </form>
 
-          <div className='flex items-center justify-end border-t border-slate-200 pt-6 mt-4 gap-3'>
+          <div className='flex items-center justify-end border-t border-slate-200 p-3 sm:p-6 mt-4 gap-3'>
             <button 
               type="button" 
               onClick={() => createModalRef.current?.close()} 
